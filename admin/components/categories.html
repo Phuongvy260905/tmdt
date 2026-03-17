@@ -1,0 +1,59 @@
+<div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+  <div class="flex items-center justify-between mb-5">
+    <div>
+      <h2 class="text-2xl font-bold text-slate-800">Category Management</h2>
+      <p class="text-sm text-slate-500 mt-1">Thêm, sửa, xoá, bật tắt và sắp xếp danh mục.</p>
+    </div>
+    <button onclick="openCategoryForm()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl">
+      + Add Category
+    </button>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="border-b border-slate-200 text-slate-600">
+          <th class="text-left py-3">ID</th>
+          <th class="text-left py-3">Name</th>
+          <th class="text-left py-3">Parent</th>
+          <th class="text-left py-3">Sort Order</th>
+          <th class="text-left py-3">Status</th>
+          <th class="text-left py-3">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="categoryTable"></tbody>
+    </table>
+  </div>
+
+  <div id="categoryFormBox" class="hidden mt-6 border border-slate-200 rounded-2xl p-5 bg-slate-50">
+    <h3 class="text-lg font-semibold mb-4" id="categoryFormTitle">Add Category</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input id="categoryName" type="text" placeholder="Tên danh mục"
+        class="border border-slate-300 rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+
+      <select id="categoryParent"
+        class="border border-slate-300 rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="">Không có danh mục cha</option>
+      </select>
+
+      <input id="categorySortOrder" type="number" placeholder="Sort order"
+        class="border border-slate-300 rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+
+      <select id="categoryStatus"
+        class="border border-slate-300 rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="true">Đang bật</option>
+        <option value="false">Đang tắt</option>
+      </select>
+    </div>
+
+    <div class="flex gap-3 mt-5">
+      <button onclick="saveCategory()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl">
+        Save
+      </button>
+      <button onclick="closeCategoryForm()" class="bg-white border border-slate-300 text-slate-700 px-4 py-2 rounded-xl">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

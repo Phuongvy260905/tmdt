@@ -1,4 +1,4 @@
-const apiKey = "AIzaSyBvadptkKjFYX-PpVwB4TDZGhcUdgfOSuQ"; // Thay bằng key mới nếu quota hết
+const apiKey = import.meta.env.VITE_API_KEY;
 
 // Model text ổn định (free tier tốt)
 const GEMINI_TEXT_MODEL = "gemini-2.5-flash";

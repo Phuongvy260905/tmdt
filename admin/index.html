@@ -102,6 +102,15 @@
           >
             <i data-lucide="image"></i> <span>Banners</span>
           </button>
+
+          
+          <button
+            onclick="switchTab('return')"
+            id="btn-return"
+            class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all hover:bg-slate-800 text-left group"
+          >
+            <i data-lucide="rotate-ccw"></i> <span>Return</span>
+          </button>
         </nav>
         <div class="p-4 border-t border-slate-800">
           <div class="bg-slate-800 p-3 rounded-lg flex items-center gap-3">
@@ -165,6 +174,7 @@
           <div id="tab-reviews" class="tab-content">Loading...</div>
           <div id= "tab-settings" class="tab-content">Loading...</div>
           <div id="tab-banners" class="tab-content">Loading...</div>
+          <div id="tab-return" class="tab-content">Loading...</div>
           </main>
       </div>
 
@@ -214,6 +224,7 @@
     <script src="assets/js/reviews.js"></script>
     <script src="assets/js/settings.js"></script>
     <script src="assets/js/banners.js"></script>
+     <script src="assets/js/return.js"></script>
 
 
     <script>
@@ -232,6 +243,7 @@
         await loadTabContent("reviews", "components/reviews.html");
         await loadTabContent("settings", "components/settings.html");
         await loadTabContent("banners", "components/banners.html");
+        await loadTabContent("return", "components/return.html");
 
         lucide.createIcons();
 

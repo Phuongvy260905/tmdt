@@ -83,7 +83,7 @@ function renderBanners() {
         <div class="p-4">
           <div class="flex items-start justify-between gap-3">
             <div>
-              <h3 class="text-lg font-semibold text-slate-800 line-clamp-2">${banner.title}</h3>
+              <h3 class="text-lg font-semibold text-slate-800">${banner.title}</h3>
               <p class="text-sm text-slate-500 mt-1">Sort order: ${banner.sort_order}</p>
             </div>
             <span class="text-xs text-slate-400">#${banner.id}</span>
@@ -116,10 +116,13 @@ function renderBanners() {
       </div>
     `)
     .join("");
+
+  if (window.lucide) lucide.createIcons();
 }
 
 function openBannerForm() {
   editingBannerId = null;
+
   document.getElementById("bannerFormTitle").textContent = "Add Banner";
   document.getElementById("bannerTitle").value = "";
   document.getElementById("bannerImage").value = "";
@@ -127,20 +130,27 @@ function openBannerForm() {
   document.getElementById("bannerPosition").value = "home-top";
   document.getElementById("bannerSort").value = "";
   document.getElementById("bannerActive").value = "true";
+
   document.getElementById("bannerFormBox").classList.remove("hidden");
+
+  attachBannerUploadEvents();
   updateBannerPreview();
+  if (window.lucide) lucide.createIcons();
 }
 
 function closeBannerForm() {
-  document.getElementById("bannerFormBox").classList.add("hidden");
+  const formBox = document.getElementById("bannerFormBox");
+  if (formBox) formBox.classList.add("hidden");
 }
 
 function updateBannerPreview() {
-  const imageUrl = document.getElementById("bannerImage")?.value.trim();
+  const imageInput = document.getElementById("bannerImage");
   const previewBox = document.getElementById("bannerPreviewBox");
   const previewImage = document.getElementById("bannerPreviewImage");
 
-  if (!previewBox || !previewImage) return;
+  if (!imageInput || !previewBox || !previewImage) return;
+
+  const imageUrl = imageInput.value.trim();
 
   if (imageUrl) {
     previewBox.classList.remove("hidden");
@@ -149,6 +159,59 @@ function updateBannerPreview() {
     previewBox.classList.add("hidden");
     previewImage.src = "";
   }
+}
+
+function handleBannerFile(file) {
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    alert("Vui lòng chọn file ảnh hợp lệ.");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    document.getElementById("bannerImage").value = event.target.result;
+    updateBannerPreview();
+  };
+  reader.readAsDataURL(file);
+}
+
+function attachBannerUploadEvents() {
+  const dropzone = document.getElementById("bannerDropzone");
+  const uploadInput = document.getElementById("bannerUpload");
+  const imageInput = document.getElementById("bannerImage");
+
+  if (!dropzone || !uploadInput || !imageInput) return;
+
+  if (dropzone.dataset.bound === "true") return;
+
+  dropzone.addEventListener("click", () => uploadInput.click());
+
+  dropzone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropzone.classList.add("border-blue-500", "bg-blue-50");
+  });
+
+  dropzone.addEventListener("dragleave", () => {
+    dropzone.classList.remove("border-blue-500", "bg-blue-50");
+  });
+
+  dropzone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropzone.classList.remove("border-blue-500", "bg-blue-50");
+    const file = e.dataTransfer.files[0];
+    handleBannerFile(file);
+  });
+
+  uploadInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    handleBannerFile(file);
+  });
+
+  imageInput.addEventListener("input", updateBannerPreview);
+
+  dropzone.dataset.bound = "true";
 }
 
 function saveBanner() {
@@ -164,7 +227,12 @@ function saveBanner() {
     return;
   }
 
-  if (editingBannerId) {
+  if (!image) {
+    alert("Vui lòng chọn ảnh hoặc dán link ảnh");
+    return;
+  }
+
+  if (editingBannerId !== null) {
     const banner = banners.find(b => b.id === editingBannerId);
     if (!banner) return;
 
@@ -195,6 +263,7 @@ function editBanner(id) {
   if (!banner) return;
 
   editingBannerId = id;
+
   document.getElementById("bannerFormTitle").textContent = "Edit Banner";
   document.getElementById("bannerTitle").value = banner.title;
   document.getElementById("bannerImage").value = banner.image_url;
@@ -202,8 +271,12 @@ function editBanner(id) {
   document.getElementById("bannerPosition").value = banner.position;
   document.getElementById("bannerSort").value = banner.sort_order;
   document.getElementById("bannerActive").value = String(banner.is_active);
+
   document.getElementById("bannerFormBox").classList.remove("hidden");
+
+  attachBannerUploadEvents();
   updateBannerPreview();
+  if (window.lucide) lucide.createIcons();
 }
 
 function toggleBannerStatus(id) {
@@ -226,9 +299,3 @@ window.editBanner = editBanner;
 window.toggleBannerStatus = toggleBannerStatus;
 window.deleteBanner = deleteBanner;
 window.updateBannerPreview = updateBannerPreview;
-
-document.addEventListener("input", (e) => {
-  if (e.target && e.target.id === "bannerImage") {
-    updateBannerPreview();
-  }
-});

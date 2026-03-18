@@ -170,4 +170,79 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// 1. Giả lập dữ liệu so sánh cho các mốc thời gian
+const comparisonData = {
+    week: {
+        revenue: { val: "+3.2%", positive: true },
+        orders: { val: "+1.5%", positive: true },
+        customers: { val: "+5", positive: true },
+        warranty: { val: "-0.2%", positive: true },
+        label: "so với tuần trước"
+    },
+    month: {
+        revenue: { val: "+12.5%", positive: true },
+        orders: { val: "+5%", positive: true },
+        customers: { val: "+18", positive: true },
+        warranty: { val: "-2.1%", positive: true },
+        label: "so với tháng trước"
+    },
+    quarter: {
+        revenue: { val: "+28.4%", positive: true },
+        orders: { val: "+15.2%", positive: true },
+        customers: { val: "+142", positive: true },
+        warranty: { val: "+0.5%", positive: false },
+        label: "so với quý trước"
+    },
+    year: {
+        revenue: { val: "+112%", positive: true },
+        orders: { val: "+85%", positive: true },
+        customers: { val: "+1,240", positive: true },
+        warranty: { val: "-5.4%", positive: true },
+        label: "so với năm trước"
+    }
+};
+
+// 2. Hàm xử lý khi thay đổi Dropdown
+function handleTimeRangeChange() {
+    const range = document.getElementById('time-range-selector').value;
+    const data = comparisonData[range];
+
+    // Cập nhật Card Doanh thu
+    updateCard('revenue', data.revenue, data.label);
+    // Cập nhật Card Đơn hàng
+    updateCard('orders', data.orders, data.label);
+    // Cập nhật Card Khách hàng
+    updateCard('customers', data.customers, data.label);
+    // Cập nhật Card Bảo hành
+    updateCard('cancel-rate', data.warranty, data.label);
+
+    // Vẽ lại biểu đồ nếu cần để khớp với mốc thời gian
+    updateChartsForRange(range);
+}
+
+// 3. Helper cập nhật UI từng Card
+function updateCard(key, stat, label) {
+    const valEl = document.getElementById(`compare-${key}-val`);
+    const labelEl = document.getElementById(`compare-${key}-label`);
+    
+    if (valEl && labelEl) {
+        valEl.innerText = stat.val;
+        labelEl.innerText = label;
+
+        // Đổi màu sắc (Xanh nếu tốt, Đỏ nếu xấu)
+        if (stat.positive) {
+            valEl.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded";
+        } else {
+            valEl.className = "text-xs font-bold text-rose-500 bg-rose-50 px-2 py-1 rounded";
+        }
+    }
+}
+
+// 4. (Tùy chọn) Cập nhật dữ liệu biểu đồ
+function updateChartsForRange(range) {
+    // Logic cập nhật labels của Chart.js (Ví dụ: T2, T3 -> Q1, Q2)
+    console.log("Đang cập nhật biểu đồ theo mốc:", range);
+    // Gọi hàm initCharts() của bạn với dữ liệu mới tại đây
+}
+
 window.InventoryModule = InventoryModule;

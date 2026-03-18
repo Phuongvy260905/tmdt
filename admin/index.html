@@ -108,7 +108,7 @@
           >
             <i data-lucide="rotate-ccw"></i> <span>Return</span>
           </button>
-             <button
+          <button
             onclick="switchTab('comment')"
             id="btn-comment"
             class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all hover:bg-slate-800 text-left group"
@@ -230,7 +230,7 @@
     <script src="assets/js/settings.js"></script>
     <script src="assets/js/banners.js"></script>
     <script src="assets/js/return.js"></script>
-   <script src="assets/js/comment.js"></script>
+    <script src="assets/js/comment.js"></script>
 
     <script>
       // Khởi tạo khi load
@@ -250,7 +250,10 @@
         await loadTabContent("banners", "components/banners.html");
         await loadTabContent("return", "components/return.html");
         await loadTabContent("comment", "components/comment.html");
-        
+        const savedTab = localStorage.getItem("activeTab") || "dashboard";
+
+        // 3. Kích hoạt tab đó
+        switchTab(savedTab);
 
         lucide.createIcons();
 
@@ -287,6 +290,7 @@
       lucide.createIcons();
 
       function switchTab(id) {
+        localStorage.setItem("activeTab", id);
         document
           .querySelectorAll(".tab-content")
           .forEach((t) => t.classList.remove("active"));
@@ -313,6 +317,12 @@
             renderSettings();
           if (id === "banners" && typeof renderBanners === "function")
             renderBanners();
+          if (id === "return" && typeof CommentModule !== "undefined") {
+            CommentModule.loadOrders();
+          }
+          if (id === "comment" && typeof CommentModule !== "undefined") {
+            CommentModule.init();
+          }
         }, 100);
       }
     </script>

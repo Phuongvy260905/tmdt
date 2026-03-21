@@ -115,20 +115,14 @@
           >
             <i data-lucide="messages-square"></i> <span>comment</span>
           </button>
+          <button
+            onclick="switchTab('vouchers')"
+            id="btn-vouchers"
+            class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all hover:bg-slate-800 text-left group"
+          >
+            <i data-lucide="ticket"></i> <span>Khuyến mãi</span>
+          </button>
         </nav>
-        <div class="p-4 border-t border-slate-800">
-          <div class="bg-slate-800 p-3 rounded-lg flex items-center gap-3">
-            <div
-              class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold text-white"
-            >
-              AD
-            </div>
-            <div class="overflow-hidden">
-              <p class="text-xs font-bold text-white truncate">Admin Tech</p>
-              <p class="text-[10px] text-slate-500">Root Access</p>
-            </div>
-          </div>
-        </div>
       </aside>
 
       <div class="flex-1 flex flex-col overflow-hidden">
@@ -180,6 +174,7 @@
           <div id="tab-banners" class="tab-content">Loading...</div>
           <div id="tab-return" class="tab-content">Loading...</div>
           <div id="tab-comment" class="tab-content">Loading...</div>
+          <div id="tab-vouchers" class="tab-content">Loading...</div>
         </main>
       </div>
 
@@ -231,6 +226,7 @@
     <script src="assets/js/banners.js"></script>
     <script src="assets/js/return.js"></script>
     <script src="assets/js/comment.js"></script>
+    <script src="assets/js/vouchers.js"></script>
 
     <script>
       // Khởi tạo khi load
@@ -250,6 +246,7 @@
         await loadTabContent("banners", "components/banners.html");
         await loadTabContent("return", "components/return.html");
         await loadTabContent("comment", "components/comment.html");
+        await loadTabContent("vouchers", "components/vouchers.html");
         const savedTab = localStorage.getItem("activeTab") || "dashboard";
 
         // 3. Kích hoạt tab đó
@@ -322,6 +319,9 @@
           }
           if (id === "comment" && typeof CommentModule !== "undefined") {
             CommentModule.init();
+          }
+          if (id === "vouchers" && typeof VoucherModule !== "undefined") {
+            VoucherModule.render();
           }
         }, 100);
       }

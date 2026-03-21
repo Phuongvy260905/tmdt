@@ -122,6 +122,13 @@
           >
             <i data-lucide="ticket"></i> <span>Khuyến mãi</span>
           </button>
+          <button
+            onclick="switchTab('price-history')"
+            id="btn-price-history"
+            class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all hover:bg-slate-800 text-left group"
+          >
+            <i data-lucide="trending-up"></i> <span>Price-History</span>
+          </button>
         </nav>
       </aside>
 
@@ -175,6 +182,7 @@
           <div id="tab-return" class="tab-content">Loading...</div>
           <div id="tab-comment" class="tab-content">Loading...</div>
           <div id="tab-vouchers" class="tab-content">Loading...</div>
+          <div id="tab-price-history" class="tab-content">Loading...</div>
         </main>
       </div>
 
@@ -227,6 +235,7 @@
     <script src="assets/js/return.js"></script>
     <script src="assets/js/comment.js"></script>
     <script src="assets/js/vouchers.js"></script>
+    <script src="assets/js/price_history.js"></script>
 
     <script>
       // Khởi tạo khi load
@@ -247,6 +256,7 @@
         await loadTabContent("return", "components/return.html");
         await loadTabContent("comment", "components/comment.html");
         await loadTabContent("vouchers", "components/vouchers.html");
+        await loadTabContent("price-history", "components/price_history.html");
         const savedTab = localStorage.getItem("activeTab") || "dashboard";
 
         // 3. Kích hoạt tab đó
@@ -315,13 +325,16 @@
           if (id === "banners" && typeof renderBanners === "function")
             renderBanners();
           if (id === "return" && typeof CommentModule !== "undefined") {
-            CommentModule.loadOrders();
+            CommentModule.renderUI();
           }
           if (id === "comment" && typeof CommentModule !== "undefined") {
             CommentModule.init();
           }
           if (id === "vouchers" && typeof VoucherModule !== "undefined") {
             VoucherModule.render();
+          }
+          if (id === "price-history" && typeof PriceHistoryModule !== "undefined") {
+            PriceHistoryModule.render();
           }
         }, 100);
       }

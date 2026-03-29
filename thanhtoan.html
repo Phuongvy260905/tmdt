@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="thanhtoan.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
 
     <header class="navbar">
@@ -31,37 +33,37 @@
         </div>
     </header>
 
-<div class="checkout-container">
-    <h1>Thanh Toán</h1>
+    <div class="checkout-container">
+        <h1>Thanh Toán</h1>
 
-    <div class="checkout-content">
-        <div class="order-section">
-            <h2>Đơn Hàng Của Bạn</h2>
-            
-            <div class="product-card">
-                <img src="/ip15.png" alt="ip15">
-                <div class="product-info">
-                    <p class="product-name">iPhone 15 128GB</p>
-                    <p class="product-price">18.900.000đ <span class="old-price">19.600.000đ </span></p>
+        <div class="checkout-content">
+            <div class="order-section">
+                <h2>Đơn Hàng Của Bạn</h2>
+
+                <div class="product-card">
+                    <img src="/ip15.png" alt="ip15">
+                    <div class="product-info">
+                        <p class="product-name">iPhone 15 128GB</p>
+                        <p class="product-price">18.900.000đ <span class="old-price">19.600.000đ </span></p>
+                    </div>
+                    <div class="product-qty">x1</div>
                 </div>
-                <div class="product-qty">x1</div>
-            </div>
 
-            <div class="product-card">
-                <img src="/ip15plus.jpg" alt="ip15plus">
-                <div class="product-info">
-                    <p class="product-name">iPhone 15 Plus 128GB</p>
-                    <p class="product-price">21.990.000đ <span class="old-price">22.400.000đ </span></p>
+                <div class="product-card">
+                    <img src="/ip15plus.jpg" alt="ip15plus">
+                    <div class="product-info">
+                        <p class="product-name">iPhone 15 Plus 128GB</p>
+                        <p class="product-price">21.990.000đ <span class="old-price">22.400.000đ </span></p>
+                    </div>
+                    <div class="product-qty">x1</div>
                 </div>
-                <div class="product-qty">x1</div>
+
+                <div class="total-price">
+                    Tổng: <span id="total-amount">40.890.000</span>đ
+                </div>
             </div>
 
-            <div class="total-price">
-                Tổng: <span id="total-amount">40.890.000</span>đ
-            </div>
-        </div>
-
-        <div class="customer-section">
+            <div class="customer-section">
                 <h4>Chọn phương thức thanh toán: </h4>
                 <select id="payment-select">
                     <option value="Thanh toán khi nhận hàng (COD)">Thanh toán khi nhận hàng (COD)</option>
@@ -71,27 +73,28 @@
                 <button type="submit" class="btn-order">
                     <i class="fa-solid fa-receipt"></i> Đặt Hàng
                 </button>
-            
+
+            </div>
         </div>
     </div>
-</div>
 
-<div id="qrModal" class="modal-qr">
-    <div class="modal-qr-content">
-        <span class="close-qr">&times;</span>
-        <h3>Quét mã để thanh toán</h3>
-        <p>Số tiền: <strong id="qr-amount">0</strong> VND</p>
-        <img src="" id="qr-image" alt="Mã QR Thanh Toán">
-        <div class="qr-info">
-            <p>Ngân hàng: <strong>Vietcombank</strong></p>
-            <p>STK: <strong>123456789</strong></p>
-            <p>Chủ TK: <strong>NGUYEN VAN A</strong></p>
-            <p>Nội dung: <strong id="qr-desc"></strong></p>
+    <div id="qrModal" class="modal-qr">
+        <div class="modal-qr-content">
+            <span class="close-qr">&times;</span>
+            <h3>Quét mã để thanh toán</h3>
+            <p>Số tiền: <strong id="qr-amount">0</strong> VND</p>
+            <img src="" id="qr-image" alt="Mã QR Thanh Toán">
+            <div class="qr-info">
+                <p>Ngân hàng: <strong>Vietcombank</strong></p>
+                <p>STK: <strong>123456789</strong></p>
+                <p>Chủ TK: <strong>NGUYEN VAN A</strong></p>
+                <p>Nội dung: <strong id="qr-desc"></strong></p>
+            </div>
+            <button onclick="closeQR()">Tôi đã chuyển khoản</button>
         </div>
-        <button onclick="closeQR()">Tôi đã chuyển khoản</button>
     </div>
-</div>
 
-<script src="thanhtoan.js"></script>
+    <script src="thanhtoan.js"></script>
 </body>
+
 </html>
